@@ -1105,11 +1105,15 @@ class RCTVideo: UIView, RCTVideoPlayerViewControllerDelegate, RCTPlayerObserverH
                           "textTracks": textTracks,
                           "target": reactTag as Any])
             
-            self.eventDelegate?.onVideoLoad(currentTime: NSNumber(value: Float(CMTimeGetSeconds(_playerItem.currentTime()))), duration: NSNumber(value: duration), naturalSize: [
-                "width": width != nil ? NSNumber(value: width!) : NSNull(),
-                "height": width != nil ? NSNumber(value: height!) : NSNull(),
-                "orientation": orientation
-              ])
+            var naturalSize = NSMutableDictionary()
+            naturalSize["orientation"] = orientation
+            if let width {
+                naturalSize["width"] = NSNumber(value: width)
+            }
+            if let height {
+                naturalSize["height"] = NSNumber(value: height)
+            }
+            self.eventDelegate?.onVideoLoad(currentTime: NSNumber(value: Float(CMTimeGetSeconds(_playerItem.currentTime()))), duration: NSNumber(value: duration), naturalSize: naturalSize)
         }
         _videoLoadStarted = false
         _playerObserver.attachPlayerEventListeners()
