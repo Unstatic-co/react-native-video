@@ -1,5 +1,5 @@
 {
-    "name": "react-native-video",
+    "name": "react-native-video-fabric",
     "version": "7.0.0-alpha.20",
     "description": "A <Video /> element for react-native",
     "main": "src/index",
